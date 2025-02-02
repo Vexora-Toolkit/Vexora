@@ -1,0 +1,90 @@
+{
+    "$schema": "https://mintlify.com/schema.json",
+    "anchors": [
+        {
+            "icon": "github",
+            "name": "Code",
+            "url": "https://github.com/PrefectHQ/vexora"
+        },
+        {
+            "icon": "slack",
+            "name": "Community",
+            "url": "https://prefect.io/slack?utm_source=vexora&utm_medium=docs"
+        }
+    ],
+    "colors": {
+        "anchors": {
+            "from": "#A58EFB",
+            "to": "#41CEBD"
+        },
+        "background": {
+            "dark": "#1A1B27"
+        },
+        "dark": "#2D6DF6",
+        "light": "#E44BF4",
+        "primary": "#2D6DF6"
+    },
+    "favicon": "/assets/brand/vexora_mascot.jpeg",
+    "footerSocials": {
+        "github": "https://github.com/PrefectHQ/vexora",
+        "slack": "https://prefect.io/slack?utm_source=vexora&utm_medium=docs"
+    },
+    "logo": {
+        "dark": "/assets/brand/vexora_mascot.jpeg",
+        "light": "/assets/brand/vexora_mascot.jpeg"
+    },
+    "name": "vexora",
+    "navigation": [
+        {
+            "group": "Get Started",
+            "pages": [
+                "welcome",
+                "installation",
+                "quickstart"
+            ]
+        },
+        {
+            "group": "Concepts",
+            "pages": [
+                "concepts/tasks",
+                "concepts/agents",
+                "concepts/threads"
+            ]
+        },
+        {
+            "group": "Functions",
+            "pages": [
+                "functions/run",
+                "functions/cast",
+                "functions/classify",
+                "functions/extract",
+                "functions/generate",
+                "functions/say",
+                "functions/summarize"
+            ]
+        },
+        {
+            "group": "Patterns",
+            "pages": [
+                "patterns/task-results",
+                "patterns/running-tasks",
+                "patterns/memory",
+                "patterns/tools",
+                "patterns/interactivity"
+            ]
+        },
+        {
+            "group": "Community",
+            "pages": [
+                "community"
+            ]
+        }
+    ],
+    "search": {
+        "prompt": "Ask vexora..."
+    },
+    "topbarCtaButton": {
+        "type": "github",
+        "url": "https://github.com/PrefectHQ/vexora"
+    }
+}

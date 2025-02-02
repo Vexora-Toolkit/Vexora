@@ -1,0 +1,120 @@
+---
+title: Plan
+description: Break down complex objectives into manageable tasks
+icon: list-check
+---
+
+The `plan` function helps you break down complex objectives into a series of smaller, manageable tasks. 
+It's particularly useful for handling large or complex goals that benefit from being tackled incrementally.
+
+For simple tasks, you can use `vexora.run()` directly. The `plan` function is designed for complex 
+workflows that benefit from being broken down into steps - see [Task Planning](/concepts/tasks#task-planning) 
+for more details.
+
+## Usage
+
+Create a simple task plan:
+
+```python
+import vexora
+
+# Create and execute a series of tasks
+tasks = vexora.plan("Create a new blog post about AI trends")
+vexora.run_tasks(tasks)
+```
+
+## Parameters
+
+- `instructions`: The objective to achieve
+- `agent`: Optional agent to use for planning
+- `thread`: Optional thread for conversation context
+- `context`: Optional dict of additional context
+- `available_agents`: Optional list of agents that can be used for planning
+- `tools`: Optional list of tools that can be used for planning
+- `parent_task`: Optional parent task for the planned tasks
+
+## Returns
+
+Returns a list of `Task` objects that, when completed, will achieve the specified objective.
+
+## Async Support
+
+The function is also available in an async version:
+
+```python
+import vexora
+import asyncio
+
+async def main():
+    tasks = await vexora.plan_async(
+        "Create a new blog post about AI trends"
+    )
+    await vexora.run_tasks_async(tasks)
+
+asyncio.run(main())
+```
+
+## Examples
+
+### Multiple Agents
+
+Assign different tasks to specialized agents:
+
+```python
+import vexora
+
+# Create specialized agents
+researcher = vexora.Agent(name="Researcher", model="openai:gpt-4")
+writer = vexora.Agent(name="Writer", model="openai:gpt-4")
+editor = vexora.Agent(name="Editor", model="openai:gpt-4")
+
+# Plan tasks with multiple agents
+tasks = vexora.plan(
+    "Create a comprehensive research report on quantum computing",
+    available_agents=[researcher, writer, editor]
+)
+vexora.run_tasks(tasks)
+```
+
+### With Context
+
+Provide additional requirements:
+
+```python
+import vexora
+
+# Provide detailed context for planning
+context = {
+    "target_audience": "technical professionals",
+    "word_count": 2000,
+    "key_topics": ["neural networks", "transformers", "reinforcement learning"]
+}
+
+tasks = vexora.plan(
+    "Write a technical blog post about AI advancements",
+    context=context
+)
+vexora.run_tasks(tasks)
+```
+
+### With Tools
+
+Make specific tools available to tasks:
+
+```python
+import vexora
+
+def fetch_papers(topic: str, limit: int = 5) -> list[str]:
+    """Fetch latest research papers on a topic."""
+    pass
+
+def analyze_sentiment(text: str) -> float:
+    """Analyze sentiment of text."""
+    pass
+
+tasks = vexora.plan(
+    "Create a sentiment analysis report for recent AI papers",
+    tools=[fetch_papers, analyze_sentiment]
+)
+vexora.run_tasks(tasks)
+``` 

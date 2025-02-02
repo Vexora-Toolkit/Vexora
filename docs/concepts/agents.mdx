@@ -1,0 +1,177 @@
+---
+title: Agents
+description: The intelligent workers in your AI workflows.
+icon: robot
+---
+
+Agents are the intelligent, autonomous entities that power your AI workflows in vexora. They represent AI models capable of understanding instructions, making decisions, and completing tasks.
+
+```python
+import vexora
+
+agent = vexora.Agent(name="vexora")
+```
+
+## What are agents?
+
+Agents in vexora are configurable AI entities, each with its own identity, capabilities, and even personality. They act as the "workers" in your AI workflows, responsible for executing tasks and making decisions based on their assigned instructions and available tools.
+
+You can think of each agent as a portable LLM configuration. When you assign an agent to a task, they will work to complete it according to the instructions and tools you provide.
+
+## Creating agents
+
+To create an agent, use the `Agent` class:
+
+```python
+import vexora
+
+agent = vexora.Agent(name="vexora")
+```
+
+A more complex agent can be created by providing additional configuration. This example shows the main configuration options:
+
+```python
+import vexora
+
+agent = vexora.Agent(
+    name="Data Analyst",
+    description="An AI agent specialized in data analysis",
+    instructions="Perform data analysis tasks efficiently and accurately.",
+    tools=[analyze_data, plot_results],
+    model="openai:gpt-4",
+    memories=[knowledge_base],
+)
+```
+
+## Agent properties
+
+### Name
+
+An agent's name is an identifier that is visible to other agents in the workflow. It is used to distinguish between agents and for logging and debugging purposes. If no name is provided, one will be randomly chosen from a list of famous AI characters.
+
+### Description
+
+A description is a brief summary of the agent's role or specialization. This information is visible to other agents, and helps them understand the agent's capabilities and expertise.
+
+### Instructions
+
+Instructions are specific instructions or guidelines for the agent to follow during task execution. These instructions are private and not shared with other agents.
+
+### Tools
+
+Tools are Python functions that the agent can call to perform specific actions or computations. They are defined as a list of functions when creating an agent, and can be used to enhance the agent's capabilities. The agent will have access to these tools in every task they are assigned to. If a task defines additional tools, the agent will have access to those as well.
+
+### Model
+
+Each agent has a model, which is the LLM that powers the agent responses. This allows you to choose the most suitable model for your needs, based on factors such as performance, latency, and cost.
+
+vexora supports any model that is compatible with Pydantic AI. You can specify models using a string format like "openai:gpt-4" or by providing a Model instance:
+
+```python
+import vexora
+from pydantic_ai.models import OpenAIModel
+
+# Using a string identifier
+agent1 = vexora.Agent(model="openai:gpt-4")
+
+# Using a model instance
+model = OpenAIModel(name="gpt-4")
+agent2 = vexora.Agent(model=model)
+```
+
+### Model Settings
+
+You can customize the behavior of an agent's model using the `model_settings` parameter. This allows you to configure settings like temperature, top_p, etc:
+
+```python
+import vexora
+
+agent = vexora.Agent(
+    name="Creative Writer",
+    model="openai:gpt-4",
+    model_settings={"temperature": 0.8}
+)
+```
+
+### Memories
+
+Agents can be configured with memories that provide additional context or knowledge. These memories persist across tasks and can be used to store and retrieve relevant information:
+
+```python
+import vexora
+from vexora.memory import Memory
+
+knowledge_base = Memory(key="documentation")
+
+agent = vexora.Agent(
+    name="Support Agent",
+    memories=[knowledge_base]
+)
+```
+
+### Delegates
+
+Agents can be configured with a list of other agents that they can delegate work to. This is particularly useful when working with teams of agents:
+
+```python
+import vexora
+
+researcher = vexora.Agent(name="Researcher")
+writer = vexora.Agent(name="Writer")
+editor = vexora.Agent(
+    name="Editor",
+    delegates=[researcher, writer]
+)
+```
+
+## Teams
+
+In vexora, agents can be organized into teams to work together on tasks. A team is a way to govern how agents work together. The most common team is a `Swarm`, in which every agent can hand off to every other agent, but other team types exist like round-robin, random, moderated, and more.
+
+
+### Swarms
+
+A swarm is a team of multiple agents that can delegate tasks to each other. This is useful for complex tasks that require different types of expertise:
+
+```python
+import vexora
+from vexora.agents.team import Swarm
+
+researcher = vexora.Agent(name="Researcher")
+writer = vexora.Agent(name="Writer")
+editor = vexora.Agent(name="Editor")
+
+team = Swarm(agents=[researcher, writer, editor])
+
+vexora.run("Write a report about AI", agents=[team])
+```
+
+<Tip>
+When you provide a list of agents to a task, vexora will automatically treat them as a swarm.
+</Tip>
+
+## Assigning agents to tasks
+
+Agents must be assigned to tasks in order to work on them. You can assign agents by passing them to the `agents` parameter when creating a task:
+
+```python
+import vexora
+
+agent = vexora.Agent(name="Poet")
+task = vexora.Task(
+    instructions="Write a poem about AI",
+    agents=[agent]
+)
+```
+
+If no agent is specified, vexora will use the default agent configured in your settings.
+
+You can also use the agent's `say` method for simple conversational interactions:
+
+```python
+import vexora
+
+agent = vexora.Agent(name="Assistant")
+response = agent.say("What is the meaning of life?")
+print(response)
+```

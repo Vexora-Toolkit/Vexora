@@ -1,0 +1,54 @@
+---
+title: Instructions
+description: Provide ad-hoc guidance to agents without modifying tasks.
+icon: person-chalkboard
+---
+
+While tasks and agents can be provided with permanent instructions about how they should operate, there may be situations where you need to provide ad-hoc or temporary guidance to your agents. For example:
+
+- Telling an agent to adopt a specific tone or style
+- Setting length requirements for generated content
+- Providing additional context for a specific interaction
+- Adjusting behavior based on runtime conditions
+- Creating a specific persona for user interactions
+
+vexora addresses this need with the `instructions` context manager. With `instructions`, you can provide temporary additional guidance to agents without altering the underlying task definition.
+
+<CodeGroup>
+```python Code
+import vexora
+
+# Make the agent talk like a pirate
+with vexora.instructions("Talk like a pirate"):
+    name = vexora.run(
+        "Ask for the user's name",
+        cli=True
+    )
+
+print(name)
+```
+
+```text Result
+Agent: Ahoy, me hearty! Can ye tell me yer name?
+User: John Doe
+
+John Doe
+```
+</CodeGroup>
+
+Instructions are temporary and only last as long as the context manager is active. You can also nest multiple instructions:
+
+```python
+import vexora
+
+with vexora.instructions("Be very formal"):
+    with vexora.instructions("Use British English"):
+        result = vexora.run("Write a greeting")
+
+# Instructions can guide content generation
+with vexora.instructions("Keep it under 100 words"):
+    with vexora.instructions("Focus on technical details"):
+        summary = vexora.summarize("Long technical document...")
+```
+
+Note that instructions are applied when tasks are run, not when they are created. This allows you to dynamically adjust agent behavior based on runtime conditions without modifying the underlying tasks.
