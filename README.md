@@ -13,7 +13,7 @@ Vexora provides a structured, developer-focused framework for defining workflows
 
 > [!WARNING]
 > 
-> 🚧🚨 Vexora 3.0 is under very active development, reflected on the `main` branch of this repo. The API may undergo breaking changes, and documentation is still being updated. Please use it with caution. You may prefer the stable version of [Vexora 2.0](https://askVexora.ai) or [ControlFlow](https://controlflow.ai) for now.
+> 🚧🚨 Vexora 3.0 is under very active development, reflected on the `main` branch of this repo. The API may undergo breaking changes, and documentation is still being updated. Please use it with caution.
 
 
 ## Example
