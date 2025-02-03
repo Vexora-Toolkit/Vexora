@@ -1,14 +1,15 @@
 ![Vexora Banner](docs/assets/img/quotes/sort_of_thing_you_enjoy.png)
 
-# Vexora
+# Vexora - AI Workflow Framework
 
-Vexora is a Python framework for building agentic AI workflows. 
+Vexora is a Python-based framework designed for building structured AI-driven workflows with precision and control.
 
-Vexora provides a structured, developer-focused framework for defining workflows and delegating work to LLMs, without sacrificing control or transparency:
+It enables developers to create and manage agentic workflows by:
 
-- Create discrete, observable **tasks** that describe your objectives.
-- Assign one or more specialized AI **agents** to each task.
-- Combine tasks into a **thread** to orchestrate more complex behaviors.
+- Defining clear, structured tasks to break down objectives into manageable steps.
+- Assigning specialized AI agents to handle each task efficiently.
+- Organizing tasks into threaded workflows to coordinate complex AI behaviors seamlessly.
+- With Vexora, you gain flexibility and transparency while leveraging the power of LLMs for intelligent automation.
 
 
 > [!WARNING]
