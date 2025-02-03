@@ -45,7 +45,7 @@ async def cli(message: str) -> str:
             f"""
             [bold blue]🤖 {agent}:[/] [blue]{message}[/]
             
-            :computer: [bold green]You:[/]
+            :computer: [bold green]You:[/] 
             """,
         ),
     )
